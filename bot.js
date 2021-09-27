@@ -4,7 +4,7 @@ const http = require('http');
 
 let data;
 try {
-    data = JSON.parse(fs.readFileSync(`${__dirname}\\data.json`));
+    data = JSON.parse(fs.readFileSync(`data.json`));
     if(data.token == null || data.token == "") {
         console.error("Please add token to data.json");
         process.exit(1);
@@ -12,7 +12,7 @@ try {
 }
 catch(e){
     data = { token: "", nodee_address: "" };
-    fs.writeFileSync(`${__dirname}\\data.json`, JSON.stringify(data));
+    fs.writeFileSync(`data.json`, JSON.stringify(data));
     console.error("Please add token to data.json");
     process.exit(1);
 }
