@@ -75,7 +75,7 @@ const updateStatusCPU = async() => {
 
                             const cpuPercent = (cpuUsage / cpuTotal) * 100;
 
-                            client.user.setActivity({name: `KGStudios | CPU: ${Math.round(cpuPercent)}%`, type: "WATCHING"});
+                            client.user.setActivity({name: `CPU: ${Math.round(cpuPercent)}%`, type: "WATCHING"});
                         });
                     });
                 }, 1000);
@@ -108,7 +108,7 @@ const updateStatusRAM = async() => {
                 const memoryPercent = Math.floor((memoryUsed / memoryTotal) * 100);
 
                 const memoryString = `${memoryPercent}% (${((memoryUsed / 1048576) / 1024).toFixed(2)}GB/${((memoryTotal / 1048576) / 1024).toFixed(2)}GB)`;
-                client.user.setActivity({name: `KGStudios | RAM: ${memoryString}`, type: "WATCHING"});
+                client.user.setActivity({name: `RAM: ${memoryString}`, type: "WATCHING"});
             } catch (e){
                 console.log(e);
             }
