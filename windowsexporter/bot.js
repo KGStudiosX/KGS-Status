@@ -6,7 +6,11 @@ let data;
 try {
     data = JSON.parse(fs.readFileSync(`data.json`));
     if(data.token == null || data.token == "") {
-        console.error("Please add token to data.json");
+        if(data.nodee_address == null || data.nodee_address == "") console.error("Please add token and Windows Exporter url to data.json"); else console.error("Please add token to data.json");
+        process.exit(1);
+    }
+    if(data.nodee_address == null || data.nodee_address == ""){
+        console.error("Please add Windows Exporter url to data.json");
         process.exit(1);
     }
 }
