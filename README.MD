@@ -4,7 +4,7 @@ The bot displays CPU and RAM load from Node Exporter/Windows Exporter in its sta
 #### You need installed nodejs 16 and above
 1. Download the repository
 1. Install discord.js and dependencies by using `npm update`
-1. Launch bot using `node bot` or `node bot.js`
+1. (Open `windowsexporter` folder for Windows Exporter version) Launch bot using `node bot` or `node bot.js`
 1. Add bot token and Exporter link to `data.json`
 1. Launch bot again
 
