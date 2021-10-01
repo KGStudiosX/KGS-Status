@@ -79,14 +79,17 @@ const updateStatusCPU = async() => {
 
                             const cpuPercent = (cpuUsage / cpuTotal) * 100;
 
-                            client.user.setActivity({name: `CPU: ${Math.round(cpuPercent)}%`, type: "WATCHING"});
+                            client.user.setPresence({activities: [{name: `CPU: ${Math.round(cpuPercent)}%`, type: "WATCHING"}], status: 'online'});
                         });
                     });
                 }, 1000);
             } catch (e){
                 console.log(e);
             }
-        })
+        });
+        response.on('error', (e) => {
+            client.user.setPresence({ activities: [{ name: 'offline' }], status: 'idle' });
+        });
     });
 }
 
@@ -110,7 +113,7 @@ const updateStatusRAM = async() => {
                 const memoryPercent = Math.floor((memoryUsed / memoryTotal) * 100);
 
                 const memoryString = `${memoryPercent}% (${((memoryUsed / 1048576) / 1024).toFixed(2)}GB/${((memoryTotal / 1048576) / 1024).toFixed(2)}GB)`;
-                client.user.setActivity({name: `RAM: ${memoryString}`, type: "WATCHING"});
+                client.user.setPresence({activities: [{name: `RAM: ${memoryString}`, type: "WATCHING"}], status: 'online'});
             } catch (e){
                 console.log(e);
             }
