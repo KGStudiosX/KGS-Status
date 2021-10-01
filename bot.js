@@ -67,7 +67,7 @@ const updateStatusCPU = async() => {
                         response2.setEncoding('utf8');
                         response2.on('data', (chunk2) => rawdata2 += chunk2);
                         response2.on('end', () => {
-                            nodee2 = rawdata2.split('\n');
+                            let nodee2 = rawdata2.split('\n');
                             nodee2.forEach(element => {
                                 if(element.match(cpuRegex)){
                                     if(element.match(cpuRegex)[2] != "idle")cpuUsage2 += +element.match(cpuRegex)[3];
