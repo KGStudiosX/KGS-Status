@@ -117,6 +117,9 @@ const updateStatusRAM = async() => {
             } catch (e){
                 console.log(e);
             }
-        })
+        });
+        response.on('error', (e) => {
+            client.user.setPresence({ activities: [{ name: 'offline' }], status: 'idle' });
+        });
     });
 }
