@@ -23,6 +23,7 @@ catch(e){
 
 const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES] });
 client.login(data.token).then(() => {
+    console.log("Bot launched. (WindowsExporter)");
     setInterval(() => {
         updateStatusRAM();
         setTimeout(() => {
@@ -46,6 +47,10 @@ client.on('messageCreate', message => {
 let nodee;
 const updateStatusCPU = async() => {
     const request = http.get(data.nodee_address, (response) => {
+        if (response.statusCode != 200) {
+            client.user.setPresence({ activities: [{ name: 'offline' }], status: 'idle' });
+            return;
+        }
         let rawdata = '';
         response.setEncoding('utf8');
         response.on('data', (chunk) => rawdata += chunk);
@@ -87,14 +92,16 @@ const updateStatusCPU = async() => {
                 console.log(e);
             }
         });
-        response.on('error', (e) => {
-            client.user.setPresence({ activities: [{ name: 'offline' }], status: 'idle' });
-        });
     });
+    request.on('error', () => client.user.setPresence({ activities: [{ name: 'offline' }], status: 'idle' }));
 }
 
 const updateStatusRAM = async() => {
     const request = http.get(data.nodee_address, (response) => {
+        if (response.statusCode != 200) {
+            client.user.setPresence({ activities: [{ name: 'offline' }], status: 'idle' });
+            return;
+        }
         let rawdata = '';
         response.setEncoding('utf8');
         response.on('data', (chunk) => rawdata += chunk);
@@ -117,9 +124,7 @@ const updateStatusRAM = async() => {
             } catch (e){
                 console.log(e);
             }
-        });
-        response.on('error', (e) => {
-            client.user.setPresence({ activities: [{ name: 'offline' }], status: 'idle' });
-        });
+        }); 
     });
+    request.on('error', () => client.user.setPresence({ activities: [{ name: 'offline' }], status: 'idle' }));
 }
