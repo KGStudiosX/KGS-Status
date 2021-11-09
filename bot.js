@@ -58,11 +58,11 @@ const updateStatusCPU = async() => {
             try{
                 nodee = rawdata.split('\n');
                 let cpuUsage, cpuTotal, cpuUsage1 = 0, cpuTotal1 = 0, cpuUsage2 = 0, cpuTotal2 = 0; // CPU
-                const cpuRegex = /^node_cpu_seconds_total{cpu="(\d)",mode="(idle|iowait|irq|nice|softirq|steal|system|user)"} ([+-]?([0-9]*[.])?[0-9]+)/i;
+                const cpuRegex = /^node_cpu_seconds_total{cpu="(\d)",mode="(idle|iowait|irq|nice|softirq|steal|system|user)"} (\d+([.]\d*)?(e[+-]?\d+)?)/i;
                 nodee.forEach(element => {
                     if(element.match(cpuRegex)){
-                        if(element.match(cpuRegex)[2] != "idle")cpuUsage1 += +element.match(cpuRegex)[3];
-                        cpuTotal1 += +element.match(cpuRegex)[3];
+                        if(element.match(cpuRegex)[2] != "idle")cpuUsage1 += parseFloat(element.match(cpuRegex)[3]);
+                        cpuTotal1 += parseFloat(element.match(cpuRegex)[3]);
                     }
                 });
 
@@ -75,8 +75,8 @@ const updateStatusCPU = async() => {
                             let nodee2 = rawdata2.split('\n');
                             nodee2.forEach(element => {
                                 if(element.match(cpuRegex)){
-                                    if(element.match(cpuRegex)[2] != "idle")cpuUsage2 += +element.match(cpuRegex)[3];
-                                    cpuTotal2 += +element.match(cpuRegex)[3];
+                                    if(element.match(cpuRegex)[2] != "idle")cpuUsage2 += parseFloat(element.match(cpuRegex)[3]);
+                                    cpuTotal2 += parseFloat(element.match(cpuRegex)[3]);
                                 }
                             });
                             cpuUsage = cpuUsage2 - cpuUsage1;
