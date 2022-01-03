@@ -3,7 +3,7 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 const data = require('./data.json');
 
 if(!data.nodee_address || !data.token){
-    console.error("lease add token and Node Exporter url to data.json");
+    console.error("Please add token and Node Exporter url to data.json");
     process.exit(1);
 }
 
